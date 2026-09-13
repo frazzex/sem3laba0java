@@ -1,6 +1,6 @@
 public class Task1DataTypes {
     public static void run() {
-    subTask3();
+    subTask7();
     }
 
     public static void subTask1() {
@@ -33,10 +33,18 @@ public class Task1DataTypes {
 
     public static void subTask6() {
         char symbol = 'a';
-        System.out.println("Символ: " + symbol + " | ледующая буква: " + (symbol + 1));
-        System.out.println("Сложение двух символов `a`: " + (symbol + symbol));
+        char nextSymbol = (char) (symbol + 1);
+        System.out.println("Символ: " + (int) symbol + " - " + symbol);
+        System.out.println("Следующий символ: " + (int) nextSymbol + " - " + nextSymbol);
+        System.out.print("Сложение символов " + symbol + " и " + nextSymbol + ": " + (symbol + nextSymbol) + " - " + (char) (symbol + nextSymbol));
 
+    }
 
+    public static void subTask7() {
+        int number1 = 2_000_000_000;
+        int number2 = 1_500_000_000;
+        long result = (long) number1 + (long) number2;
+        if (result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) System.out.println("Переполнение!");
 
     }
 }
