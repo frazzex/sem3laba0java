@@ -1,6 +1,6 @@
 public class Task2RealArithmetic {
     public static void run() {
-subTask6();
+        subTask6();
     }
 
     public static void subTask1() {
@@ -23,7 +23,7 @@ subTask6();
         double diff = Math.abs(a - b);
 
         double largest = Math.max(absA, absB);
-            return diff <= largest * epsilon;
+        return diff <= largest * epsilon;
     }
 
     public static void subTask4() {
@@ -56,7 +56,6 @@ subTask6();
         System.out.println("Результат деления doubleA и doubleB: " + (doubleA / doubleB));
 
     }
-
 
 
 }

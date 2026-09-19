@@ -1,6 +1,6 @@
 public class Task1DataTypes {
     public static void run() {
-    subTask7();
+        subTask7();
     }
 
     public static void subTask1() {

@@ -29,16 +29,16 @@ public class Task3BitwiseOperations {
     }
 
     public static boolean isPowerOfTwo(int n) {
-        return n > 0 && (n & (n-1)) == 0;
+        return n > 0 && (n & (n - 1)) == 0;
     }
 
     public static int countSetBits(int n) {
-    int counter = 0;
-    while (n != 0) {
-        n = n & (n - 1);
-        counter++;
-    }
-    return counter;
+        int counter = 0;
+        while (n != 0) {
+            n = n & (n - 1);
+            counter++;
+        }
+        return counter;
 
     }
 
@@ -53,7 +53,7 @@ public class Task3BitwiseOperations {
 
     }
 
-    public static int[] swap (int[] integers_for_swap) {
+    public static int[] swap(int[] integers_for_swap) {
         integers_for_swap[0] = integers_for_swap[0] ^ integers_for_swap[1];
         integers_for_swap[1] = integers_for_swap[0] ^ integers_for_swap[1];
         integers_for_swap[0] = integers_for_swap[0] ^ integers_for_swap[1];
