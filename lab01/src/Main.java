@@ -2,6 +2,6 @@
 
 public class Main {
     public static void main(String[] args) {
-        Task7MethodsAndArguments.run();
+        Task8ConsoleMenu.run();
     }
 }

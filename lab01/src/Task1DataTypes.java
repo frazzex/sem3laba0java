@@ -1,5 +1,11 @@
 public class Task1DataTypes {
     public static void run() {
+        subTask1();
+        subTask2();
+        subTask3();
+        subTask4();
+        subTask5();
+        subTask6();
         subTask7();
     }
 

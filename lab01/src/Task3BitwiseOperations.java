@@ -1,6 +1,8 @@
 public class Task3BitwiseOperations {
 
     public static void run() {
+        subTask1();
+        subTask2();
         subTask3();
     }
 

@@ -1,5 +1,10 @@
 public class Task2RealArithmetic {
     public static void run() {
+        subTask1();
+        subTask2();
+        subTask3(0.001, 0.001001, 4);
+        subTask4();
+        subTask5();
         subTask6();
     }
 

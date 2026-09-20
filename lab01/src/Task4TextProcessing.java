@@ -1,5 +1,9 @@
 public class Task4TextProcessing {
     public static void run() {
+        subTask1();
+        subTask2();
+        subTask3();
+        subTask4();
         subTask5();
     }
 
