@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Created-By: 20.09.26 (Tolokonnikov Artemii Andreevich)
+Main-Class: Main
