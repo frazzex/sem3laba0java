@@ -2,15 +2,15 @@ import java.util.*;
 
 public class Task1Collections {
 
-    public static int[] generateArray(int n) {
+    private static int[] generateArray(int n) {
         return new Random().ints(n, 0, 101).toArray();
     }
 
-    public static List<Integer> convertArrayToList(int[] arr) {
+    private static List<Integer> convertArrayToList(int[] arr) {
         return Arrays.stream(arr).boxed().toList();
     }
 
-    public static void sortArrayListByASC(ArrayList<Integer> arr) {
+    private static void sortArrayListByASC(ArrayList<Integer> arr) {
         Collections.sort(arr, new Comparator<Integer>() {
             @Override
             public int compare(Integer s1, Integer s2) {
@@ -29,13 +29,11 @@ public class Task1Collections {
 
     }
 
-    public static void shiftArrayToRightByShift(ArrayList<Integer> arr, int shift) {
+    private static void shiftArrayToRightByShift(ArrayList<Integer> arr, int shift) {
         for (int i = 0; i < shift; i++) {
             shiftArrayToRight(arr);
         }
     }
-
-
 
 
     public static void run() {
@@ -46,7 +44,7 @@ public class Task1Collections {
         List<Integer> list = convertArrayToList(arr);
         System.out.println("Массив типа List:\n" + list);
 
-        ArrayList<Integer> arrayList = new ArrayList<> (list);
+        ArrayList<Integer> arrayList = new ArrayList<>(list);
         arrayList.add(0);
         arrayList.add(0);
         sortArrayListByASC(arrayList);
@@ -81,12 +79,11 @@ public class Task1Collections {
         System.out.println("Только уникальные:\n" + uniqueElements);
         System.out.println("Только дублирующиеся:\n" + duplicateElements);
 
-        int[]newArr = new int[arrayList.size()];
+        int[] newArr = new int[arrayList.size()];
         for (int i = 0; i < newArr.length; i++) newArr[i] = arrayList.get(i);
         System.out.println("После преобразования: " + Arrays.toString(newArr));
 
         System.out.println("Количество вхождений элементов: " + counts);
-
 
 
     }
