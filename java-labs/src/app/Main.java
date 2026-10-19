@@ -6,9 +6,12 @@ import geometry3d.Cylinder;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello");
         Circle circle = new Circle(10);
-        Rectangle rect = new Rectangle(Double.POSITIVE_INFINITY, 14);
-        Cylinder cylinder = new Cylinder(null, 5);
+        Rectangle rect = new Rectangle(8, 14);
+        Cylinder cylinder = new Cylinder(circle, 5);
+
+        System.out.println(circle);
+        System.out.println(rect);
+        System.out.println(cylinder);
     }
 }

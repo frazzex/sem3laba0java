@@ -3,7 +3,7 @@ package geometry3d;
 import geometry2d.Figure;
 import exceptions.IncorrectFigureAttributeException;
 
-public class Cylinder implements Figure {
+public class Cylinder {
     private final Figure foundation;
     private final double height;
 
@@ -23,5 +23,23 @@ public class Cylinder implements Figure {
 
     public double getHeight() {
         return height;
+    }
+
+    public double volume() {
+        return this.foundation.area() * this.height;
+    }
+
+    @Override
+    public String toString() {
+        return """
+                {
+                    Type: %s,
+                    Parameters: {
+                        Foundation: %s,
+                        Height: %s,
+                        Volume: %s
+                    }
+                }
+                """.formatted(this.getClass().getSimpleName(), this.foundation.getClass().getSimpleName(), this.height, this.volume());
     }
 }

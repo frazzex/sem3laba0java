@@ -15,4 +15,28 @@ public class Circle implements Figure {
     public double getRadius() {
         return radius;
     }
+
+    @Override
+    public double area() {
+        return Math.PI * Math.pow(this.radius, 2);
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * Math.PI * this.radius;
+    }
+
+    @Override
+    public String toString() {
+        return """
+                {
+                    Type: %s,
+                    Parameters: {
+                        Radius: %s,
+                        Area: %s,
+                        Perimeter: %s
+                    }
+                }
+                """.formatted(this.getClass().getSimpleName(), this.radius, this.area(), this.perimeter());
+    }
 }
