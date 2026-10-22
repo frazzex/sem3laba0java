@@ -3,6 +3,8 @@ package geometry2d;
 import exceptions.IncorrectFigureAttributeException;
 
 public class Circle implements Figure {
+    private static final long serialVersionUID = 1L;
+
     private final double radius;
 
     public Circle(double radius) throws IncorrectFigureAttributeException {

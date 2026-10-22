@@ -1,9 +1,9 @@
 package app;
 
-import exceptions.InvalidRecordException;
 import geometry2d.Circle;
 import geometry2d.Figure;
 import geometry2d.Rectangle;
+import storage.BinaryFileStorage;
 import storage.ReadWritable;
 import storage.TxtFileStorage;
 
@@ -14,31 +14,36 @@ public class Main {
     public static void main(String[] args) {
         List<Figure> figures = List.of(
                 new Circle(10),
-                new Rectangle(8, 14)
+                new Rectangle(8, 14),
+                new Circle(3.14)
         );
 
-        Path path = Path.of("figures.txt");
-        ReadWritable storage = new TxtFileStorage();
+        ReadWritable txtStorage = new TxtFileStorage();
+        ReadWritable binStorage = new BinaryFileStorage();
 
+        Path txtPath = Path.of("figures.txt");
+        Path binPath = Path.of("figures.bin");
+
+        testStorage(txtStorage, txtPath, figures);
+        System.out.println("--------------------------------------------------");
+        testStorage(binStorage, binPath, figures);
+    }
+
+    private static void testStorage(ReadWritable storage, Path path, List<Figure> figures) {
         try {
-            // Запись
-            storage.write(path, figures);
-            System.out.println("Фигуры успешно записаны в файл.");
+            System.out.println("Тестирование: " + storage.getClass().getSimpleName());
 
-            // Чтение
+            storage.write(path, figures);
+            System.out.println("Успешная запись в: " + path);
+
             List<Figure> loadedFigures = storage.read(path);
-            System.out.println("\nПрочитанные фигуры:");
+            System.out.println("Прочитано объектов: " + loadedFigures.size());
             for (Figure f : loadedFigures) {
                 System.out.println(f);
             }
 
-        } catch (InvalidRecordException e) {
-            System.err.println(e.getMessage());
-            if (e.getCause() != null) {
-                System.err.println("Причина: " + e.getCause().getMessage());
-            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Ошибка при работе с " + path + ": " + e.getMessage());
         }
     }
 }

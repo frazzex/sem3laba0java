@@ -3,6 +3,8 @@ package geometry2d;
 import exceptions.IncorrectFigureAttributeException;
 
 public class Rectangle implements Figure {
+    private static final long serialVersionUID = 1L;
+
     private final double sideA;
     private final double sideB;
 
