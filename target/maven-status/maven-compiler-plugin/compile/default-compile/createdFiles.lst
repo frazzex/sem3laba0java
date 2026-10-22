@@ -1,0 +1,10 @@
+storage\ReadWritable.class
+exceptions\IncorrectFigureAttributeException.class
+exceptions\InvalidRecordException.class
+storage\TxtFileStorage.class
+geometry2d\Rectangle.class
+geometry2d\Figure.class
+storage\BinaryFileStorage.class
+app\Main.class
+geometry3d\Cylinder.class
+geometry2d\Circle.class
