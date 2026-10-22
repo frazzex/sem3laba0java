@@ -1,5 +1,5 @@
 package storage;
-import exceptions.StorageException;
+import exceptions.InvalidRecordException;
 import geometry2d.Figure;
 
 import java.io.IOException;
@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface ReadWritable {
 
-    public List<Figure> read(Path path) throws IOException, Exception;
-
+    List<Figure> read(Path path) throws IOException, ClassNotFoundException, InvalidRecordException;
     public void write(Path path, List<Figure> figures) throws IOException, Exception;
 
 }
