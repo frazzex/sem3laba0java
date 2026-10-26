@@ -1,22 +1,23 @@
 import exceptions.IncorrectFigureAttributeException;
 import geometry2d.Circle;
+import geometry3d.Cylinder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CircleTest {
 
     private static final double EPSILON = 0.01;
 
-    @Test
+    @ParameterizedTest
+    @CsvSource(value = {"1, 0.564", "28.27, 3"})
     @DisplayName("Вычисление площади круга должно быть корректным для различных допустимых радиусов")
-    void testCircleAreaForVariousRadius() {
-        assertEquals(1, new Circle(0.564).area(), EPSILON);
-        assertEquals(28.27, new Circle(3).area(), EPSILON);
+    void testCircleAreaForVariousRadius(double expected, double radius) {
+        assertEquals(expected, new Circle(radius).area(), EPSILON);
     }
 
     @Test
@@ -62,24 +63,34 @@ public class CircleTest {
         assertEquals(1.0, perimeter, EPSILON);
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource(value = {"5.0", "1.0", "10.0"})
     @DisplayName("Создание круга с допустимым радиусом должно быть успешно")
-    void shouldCreateCircleSuccessfully() {
-        Circle circle1 = new Circle(5.0);
-        Circle circle2 = new Circle(1.0);
-        Circle circle3 = new Circle(10.0);
-        assertAll("Проверка объектов на null",
-                () -> assertNotNull(circle1),
-                () -> assertNotNull(circle2),
-                () -> assertNotNull(circle3)
-        );
+    void shouldCreateCircleSuccessfully(double radius) {
+        Circle circle = new Circle(radius);
+        assertNotNull(circle);
+        assertEquals(radius, circle.getRadius());
 
-        assertAll("Проверка атрибутов объектов",
-                () -> assertEquals(5.0, circle1.getRadius()),
+    }
 
-                () -> assertEquals(1.0, circle2.getRadius()),
+    @ParameterizedTest
+    @CsvSource(value = {"10.5", "15.4", "88.98", "228.6"})
+    void shouldReturnCorrectRadius(double radius) {
+        Circle circle = new Circle(radius);
+        assertEquals(radius, circle.getRadius());
+    }
 
-                () -> assertEquals(10.0, circle3.getRadius())
+    @ParameterizedTest
+    @CsvSource(value = {"5.4", "13.6", "14.12"})
+    void shouldIncludeTypeAndParametersInToString(double radius) {
+        Circle circle = new Circle(radius);
+        String circleDescription = circle.toString();
+        assertAll("Проверка описания объекта на наличие информации о типе и его параметрах",
+                () -> assertTrue(circleDescription.contains("Circle")),
+                () -> assertTrue(circleDescription.contains(Double.toString(circle.getRadius()))),
+                () -> assertTrue(circleDescription.contains(Double.toString(circle.area()))),
+                () -> assertTrue(circleDescription.contains(Double.toString(circle.perimeter())))
+
         );
     }
 }

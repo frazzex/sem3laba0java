@@ -2,28 +2,27 @@ import geometry2d.Rectangle;
 import exceptions.IncorrectFigureAttributeException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class RectangleTest {
 
     private static final double EPSILON = 1e-9;
 
-    @Test
-    void areaOfThreeByFoursRectanglesIsTwelve() {
-        assertEquals(12.0, new Rectangle(3.0, 4.0).area(), EPSILON);
-        assertEquals(4.0, new Rectangle(2.0, 2.0).area(), EPSILON);
-        assertEquals(16.0, new Rectangle(2.0, 8.0).area(), EPSILON);
+    @ParameterizedTest
+    @CsvSource(value = {"12.0, 3.0, 4.0", "4.0, 2.0, 2.0", "16.0, 2.0, 8.0"})
+    void areaOfThreeByFoursRectanglesIsTwelve(double expected, double sideA, double sideB) {
+        assertEquals(expected, new Rectangle(sideA, sideB).area(), EPSILON);
 
     }
 
-    @Test
-    void perimeterOfThreeByFourRectangleIsFourteen() {
-        assertEquals(2 * (3.0 + 4.0), new Rectangle(3.0, 4.0).perimeter(), EPSILON);
-        assertEquals(2 * (2.0 + 2.0), new Rectangle(2.0, 2.0).perimeter(), EPSILON);
-        assertEquals(2 * (7.0 + 6.0), new Rectangle(7.0, 6.0).perimeter(), EPSILON);
+    @ParameterizedTest
+    @CsvSource(value = {"14.0, 3.0, 4.0", "8.0, 2.0, 2.0", "26.0, 7.0, 6.0"})
+    void perimeterOfThreeByFourRectangleIsFourteen(double expected, double sideA, double sideB) {
+        assertEquals(expected, new Rectangle(sideA, sideB).perimeter(), EPSILON);
     }
 
     @Test
@@ -102,28 +101,29 @@ public class RectangleTest {
     }
 
 
-    @Test
+    @ParameterizedTest
+    @CsvSource(value = {"5.0, 4.0", "1.0, 6.0", "10.0, 8.0"})
     @DisplayName("Создание прямоугольника с допустимыми сторонами должно быть успешно")
-    void shouldCreateRectangleSuccessfully() {
-        Rectangle rectangle1 = new Rectangle(5.0, 4.0);
-        Rectangle rectangle2 = new Rectangle(1.0, 6.0);
-        Rectangle rectangle3 = new Rectangle(10.0, 8.0);
-        assertAll("Проверка объектов на null",
-                () -> assertNotNull(rectangle1),
-                () -> assertNotNull(rectangle2),
-                () -> assertNotNull(rectangle3)
-        );
-
-        assertAll("Проверка атрибутов объектов",
-                () -> assertEquals(5.0, rectangle1.getSideA()),
-                () -> assertEquals(4.0, rectangle1.getSideB()),
-
-                () -> assertEquals(1.0, rectangle2.getSideA()),
-                () -> assertEquals(6.0, rectangle2.getSideB()),
-
-                () -> assertEquals(10.0, rectangle3.getSideA()),
-                () -> assertEquals(8.0, rectangle3.getSideB())
-        );
+    void shouldCreateRectangleSuccessfully(double sideA, double sideB) {
+        Rectangle rectangle = new Rectangle(sideA, sideB);
+        assertNotNull(rectangle);
+        assertEquals(sideA, rectangle.getSideA());
+        assertEquals(sideB, rectangle.getSideB());
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {"10.0, 3.45", "15.89, 24.879", "11.2, 10.0"})
+    void shouldReturnCorrectSideA(double sideA, double sideB) {
+        Rectangle rectangle = new Rectangle(sideA, sideB);
+        assertEquals(sideA, rectangle.getSideA());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"10.0, 3.45", "15.89, 24.879", "11.2, 10.0"})
+    void shouldReturnCorrectSideB(double sideA, double sideB) {
+        Rectangle rectangle = new Rectangle(sideA, sideB);
+        assertEquals(sideB, rectangle.getSideB());
+    }
+
 
 }
