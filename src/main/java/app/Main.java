@@ -5,8 +5,6 @@ import model.Visitor;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -42,9 +40,18 @@ public class Main {
         System.out.println("Есть ли у посетителей произведение автора Jane Austen: " + (isBookExist ? "Да" : "Нет"));
     }
 
+
+    public static void task5() {
+        int maxFavoriteBooksCount = visitors.stream()
+                .mapToInt(v -> v.getFavoriteBooks() != null ? v.getFavoriteBooks().size() : 0)
+                .max().orElse(0);
+
+        System.out.println("Максимальное число книг у одного посетителя: " + maxFavoriteBooksCount);
+    }
+
     public static void main(String[] args) {
 
-        task4();
+        task5();
 
     }
 }
