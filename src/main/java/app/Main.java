@@ -1,10 +1,14 @@
 package app;
 
 import model.Book;
+import model.SmsMessage;
 import model.Visitor;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -49,9 +53,38 @@ public class Main {
         System.out.println("Максимальное число книг у одного посетителя: " + maxFavoriteBooksCount);
     }
 
+    public static void task6() {
+        double averageBooksCount = visitors.stream()
+                .mapToInt(v -> v.getFavoriteBooks() != null ? v.getFavoriteBooks().size() : 0)
+                .average()
+                .orElse(0.0);
+
+        List<SmsMessage> smsMessages = new ArrayList<>();
+        visitors.stream().filter(Visitor::isSubscribed)
+                .forEach(v -> {
+                    int booksCount = v.getFavoriteBooks() != null ? v.getFavoriteBooks().size() : 0;
+
+                    if (booksCount > averageBooksCount) {
+                        smsMessages.add(new SmsMessage(v.getPhone(), "you are a bookworm"));
+                        return;
+                    }
+
+                    if (booksCount < averageBooksCount) {
+                        smsMessages.add(new SmsMessage(v.getPhone(), "read more"));
+                        return;
+                    }
+
+                    smsMessages.add(new SmsMessage(v.getPhone(), "fine"));
+
+                });
+
+        smsMessages.forEach(System.out::println);
+
+    }
+
     public static void main(String[] args) {
 
-        task5();
+        task6();
 
     }
 }
