@@ -37,7 +37,8 @@ public class Visitor {
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
-            Type visitorListType = new TypeToken<List<Visitor>>() {}.getType();
+            Type visitorListType = new TypeToken<List<Visitor>>() {
+            }.getType();
             return gson.fromJson(reader, visitorListType);
 
         } catch (Exception e) {

@@ -1,9 +1,12 @@
 package app;
 
+import model.Book;
 import model.Visitor;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -17,18 +20,31 @@ public class Main {
     }
 
     public static void task2() {
-        visitors.stream()
-                .map(Visitor::getFavoriteBooks)
-                .filter(Objects::nonNull)
-                .flatMap(List::stream)
-                .distinct()
+        List<Book> uniqueBooks = Book.getAllUniqueBooksFromVisitors(visitors);
+        uniqueBooks.forEach(System.out::println);
+        System.out.println("Количество уникальных книг: " + uniqueBooks.size());
+
+    }
+
+    public static void task3() {
+        List<Book> uniqueBooks = Book.getAllUniqueBooksFromVisitors(visitors);
+        uniqueBooks.stream()
+                .sorted(Comparator.comparingInt(Book::getPublishingYear))
                 .forEach(System.out::println);
 
+
+    }
+
+    public static void task4() {
+        List<Book> allVisitorsBooks = Book.getAllBooksFromVisitors(visitors);
+        Stream<Book> bookStream = allVisitorsBooks.stream();
+        boolean isBookExist = bookStream.anyMatch(b -> b.getAuthor().equals("Jane Austen"));
+        System.out.println("Есть ли у посетителей произведение автора Jane Austen: " + (isBookExist ? "Да" : "Нет"));
     }
 
     public static void main(String[] args) {
 
-        task2();
+        task4();
 
     }
 }
