@@ -1,5 +1,10 @@
+import app.Invoker;
+import app.MyClass;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world");
+        MyClass myClass = new MyClass();
+        Invoker.runAllProtectedPrivateMethods(myClass);
+
     }
 }
