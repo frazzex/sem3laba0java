@@ -161,13 +161,27 @@ public class Main {
         }
     }
 
+    private static void task8(Connection conn) {
+        String sql = """
+                DROP TABLE visitor_books CASCADE;
+                DROP TABLE books CASCADE;
+                DROP TABLE visitors CASCADE;
+                """;
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
 
         try (Connection conn = DatabaseManager.getConnection()) {
             new SqlScriptRunner("schema-study-create.sql").execute(conn);
             new SqlScriptRunner("music-create.sql").execute(conn);
             conn.setAutoCommit(false);
-            task7(conn);
+            task8(conn);
 
         }
 
