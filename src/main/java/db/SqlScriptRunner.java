@@ -1,4 +1,4 @@
-package app;
+package db;
 
 import java.io.IOException;
 import java.net.URI;

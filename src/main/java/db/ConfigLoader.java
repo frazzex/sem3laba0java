@@ -1,4 +1,4 @@
-package app;
+package db;
 
 import java.io.InputStream;
 import java.util.Objects;
