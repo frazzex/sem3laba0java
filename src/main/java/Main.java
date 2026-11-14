@@ -61,8 +61,29 @@ public class Main {
         new SqlScriptRunner("books-create.sql").execute(conn);
         VisitorDto[] visitors = JsonLoader.loadVisitorsFromResource("books.json");
         DatabaseImporter.importVisitorsFromJson(visitors, conn);
+    }
 
+    private static void task5(Connection conn) {
+        String sql = """
+                SELECT * FROM books
+                ORDER BY publishing_year;
+                """;
 
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                System.out.println(
+                        rs.getString("name") + " " +
+                                rs.getString("author") + " " +
+                                rs.getInt("publishing_year") + " " +
+                                rs.getString("isbn") + " " +
+                                rs.getString("publisher")
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) throws SQLException {
@@ -71,7 +92,7 @@ public class Main {
             new SqlScriptRunner("schema-study-create.sql").execute(conn);
             new SqlScriptRunner("music-create.sql").execute(conn);
             conn.setAutoCommit(false);
-            task4(conn);
+            task5(conn);
 
         }
 
