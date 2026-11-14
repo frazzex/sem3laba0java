@@ -86,13 +86,38 @@ public class Main {
         }
     }
 
+    private static void task6(Connection conn) {
+        String sql = """
+                SELECT * FROM books
+                WHERE publishing_year < 2000
+                ORDER BY publishing_year
+                """;
+
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                System.out.println(
+                        rs.getString("name") + " " +
+                                rs.getString("author") + " " +
+                                rs.getInt("publishing_year") + " " +
+                                rs.getString("isbn") + " " +
+                                rs.getString("publisher")
+                );
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
 
         try (Connection conn = DatabaseManager.getConnection()) {
             new SqlScriptRunner("schema-study-create.sql").execute(conn);
             new SqlScriptRunner("music-create.sql").execute(conn);
             conn.setAutoCommit(false);
-            task5(conn);
+            task6(conn);
 
         }
 
