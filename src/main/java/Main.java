@@ -111,13 +111,63 @@ public class Main {
         }
     }
 
+    private static void task7(Connection conn) {
+        String insertBooksSql = """
+                INSERT INTO books(name, author, publishing_year, isbn, publisher) VALUES
+                ('Молчаливый боб', 'Толоконников А. А.', 2025, 'fg132g', 'HarperPerennial'),
+                ('Разговорчивый боб', 'Толоконников А. А.', 2025, 'fg132ffg', 'HarperPerennial')
+                ON CONFLICT(isbn) DO UPDATE SET name = EXCLUDED.name RETURNING id;
+                """;
+
+        String insertVisitorsSql = """
+                INSERT INTO visitors(name, surname, phone, subscribed) VALUES
+                ('Артем', 'Толоконников', '7123456789', true) ON CONFLICT DO NOTHING
+                RETURNING id;
+                """;
+
+        String insertLinkSql = """
+                INSERT INTO visitor_books(visitor_id, book_id) VALUES(
+                ?, ?) ON CONFLICT DO NOTHING;
+                """;
+
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rsVisitors = stmt.executeQuery(insertVisitorsSql);
+
+            int visitorId = -1;
+            if (rsVisitors.next()) {
+                visitorId = rsVisitors.getInt("id");
+            }
+
+            ResultSet rsBooks = stmt.executeQuery(insertBooksSql);
+
+            java.util.List<Integer> bookIds = new java.util.ArrayList<>();
+            while (rsBooks.next()) {
+                bookIds.add(rsBooks.getInt("id"));
+            }
+
+            if (visitorId != -1) {
+                for (int bookId : bookIds) {
+                    try (PreparedStatement preparedStmt = conn.prepareStatement(insertLinkSql)) {
+                        preparedStmt.setInt(1, visitorId);
+                        preparedStmt.setInt(2, bookId);
+
+                        preparedStmt.executeUpdate();
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
 
         try (Connection conn = DatabaseManager.getConnection()) {
             new SqlScriptRunner("schema-study-create.sql").execute(conn);
             new SqlScriptRunner("music-create.sql").execute(conn);
             conn.setAutoCommit(false);
-            task6(conn);
+            task7(conn);
 
         }
 
