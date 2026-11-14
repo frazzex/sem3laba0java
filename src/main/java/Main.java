@@ -40,13 +40,29 @@ public class Main {
 
     }
 
+    private static void task3(Connection conn) {
+        try (Statement stmt = conn.createStatement()) {
+            String sql = """
+                        INSERT INTO study.music(id, name) VALUES\s
+                        ((SELECT max(id) FROM study.music) + 1, 'NTL - Летний')
+                       \s""";
+
+            stmt.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
 
         try (Connection conn = DatabaseManager.getConnection()) {
             new SqlScriptRunner("schema-study-create.sql").execute(conn);
             new SqlScriptRunner("music-create.sql").execute(conn);
 
-            task2(conn);
+            task3(conn);
+            task1(conn);
 
         }
 
