@@ -7,12 +7,8 @@ package ocp;
  * Вспомните задание из предыдущих лабораторных с фигурами.
  */
 public class DiscountCalculator {
-    public double calculateDiscount(String userType, double price) {
-        return switch (userType) {
-            case "regular" -> price * 0.05;
-            case "vip" -> price * 0.1;
-            case "super_vip" -> price * 0.2;
-            default -> 0.0;
-        };
+    public double calculateDiscount(DiscountStrategy strategy, double price) {
+        if (strategy == null || price <= 0) return 0.0;
+        return strategy.calculate(price);
     }
 }
