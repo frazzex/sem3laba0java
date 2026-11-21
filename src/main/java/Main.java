@@ -5,6 +5,8 @@ import lsp.Bird;
 import lsp.Penguin;
 import lsp.Sparrow;
 import ocp.DiscountCalculator;
+import srp.FileReportSaver;
+import srp.ReportCalculator;
 import srp.ReportManager;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
 
         // ---------- S ----------
-        ReportManager manager = new ReportManager(List.of(5, 10, 15, 20));
+        ReportManager manager = new ReportManager(List.of(5, 10, 15, 20), new ReportCalculator(), new FileReportSaver());
         manager.generateReport();
 
         // ---------- O ----------
