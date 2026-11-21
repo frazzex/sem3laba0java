@@ -1,6 +1,7 @@
 import dip.NotificationService;
 import isp.Machine;
 import isp.OldPrinter;
+import isp.Printer;
 import lsp.Bird;
 import lsp.Flyable;
 import lsp.Penguin;
@@ -33,12 +34,12 @@ public class Main {
         displayBird(new Penguin());     // Здесь будет исключение
 
         // ---------- I ----------
-//        Machine printer = new OldPrinter();
-//        printer.print("Отчёт за неделю");
-//
-//        // ---------- D ----------
-//        NotificationService service = new NotificationService();
-//        service.send("Ваш заказ готов к выдаче!");
+        Printer printer = new OldPrinter();
+        printer.print("Отчёт за неделю");
+
+        // ---------- D ----------
+        NotificationService service = new NotificationService();
+        service.send("Ваш заказ готов к выдаче!");
     }
 
     public static void displayBird(Bird bird) {
