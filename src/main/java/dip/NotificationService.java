@@ -7,9 +7,13 @@ package dip;
  * Проведите рефакторинг в соответствии с принципом инверсии зависимостей.
  */
 public class NotificationService {
-    private final EmailSender emailSender = new EmailSender();
+    private final MessageSender messageSender;
+
+    public NotificationService(MessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
 
     public void send(String message) {
-        emailSender.sendEmail(message);
+        messageSender.send(message);
     }
 }

@@ -1,4 +1,5 @@
 import dip.NotificationService;
+import dip.SmsSender;
 import isp.Machine;
 import isp.OldPrinter;
 import isp.Printer;
@@ -38,7 +39,8 @@ public class Main {
         printer.print("Отчёт за неделю");
 
         // ---------- D ----------
-        NotificationService service = new NotificationService();
+        SmsSender smsSender = new SmsSender();
+        NotificationService service = new NotificationService(smsSender);
         service.send("Ваш заказ готов к выдаче!");
     }
 
