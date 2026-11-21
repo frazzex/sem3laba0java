@@ -7,8 +7,4 @@ package lsp;
  */
 public abstract class Bird {
     public abstract void eat();
-
-    public void fly() {
-        System.out.println("Я лечу!");
-    }
 }
